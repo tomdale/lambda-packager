@@ -1,0 +1,34 @@
+{
+  "name": "lambda-packager",
+  "version": "0.1.0",
+  "description": "Builds dependencies for Node.js AWS Lambda functions",
+  "main": "lib/packager.js",
+  "scripts": {
+    "test": "mocha test/**/*-test.js"
+  },
+  "repository": "tomdale/lambda-packager",
+  "keywords": [
+    "aws",
+    "lambda"
+  ],
+  "author": "Tom Dale <tom@tomdale.net>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tomdale/lambda-packager/issues"
+  },
+  "homepage": "https://github.com/tomdale/lambda-packager#readme",
+  "devDependencies": {
+    "adm-zip": "^0.4.7",
+    "chai": "^3.4.0",
+    "chai-as-promised": "^5.1.0",
+    "mocha": "^2.3.3",
+    "temp": "^0.8.3"
+  },
+  "dependencies": {
+    "archiver": "^0.16.0",
+    "aws-sdk": "^2.2.13",
+    "fs-extra": "^0.24.0",
+    "fs-promise": "^0.3.1",
+    "rsvp": "^3.1.0"
+  }
+}

@@ -1,0 +1,10 @@
+#!/usr/bin/env node
+
+var packager = require('../lib/packager');
+
+console.log('saving ' + process.argv[2] + ' to ' + process.argv[3]);
+
+packager.build({
+  from: process.argv[2],
+  to: process.argv[3]
+});

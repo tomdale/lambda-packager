@@ -1,0 +1,38 @@
+#!/usr/bin/env node
+
+var AWS = require('aws-sdk');
+var RSVP = require('rsvp');
+var temp = require('temp').track();
+var mkdir = RSVP.denodeify(temp.mkdir);
+var exec = RSVP.denodeify(require('child_process').exec);
+var path = require('path');
+var fs = require('fs');
+
+var zipPath;
+AWS.config.region = 'us-east-1';
+var lambda = new AWS.Lambda();
+var updateFunctionCode = RSVP.denodeify(lambda.updateFunctionCode.bind(lambda));
+
+mkdir('lambda-packager')
+  .then(function(tmpPath) {
+    zipPath = path.join(tmpPath, 'lambda-packager.zip');
+  })
+  .then(function() {
+    return exec("zip -qr " + zipPath + " handler.js node_modules", { cwd: 'blueprints' });
+  })
+  .then(function() {
+    return exec("cp " + zipPath + " ./output.zip");
+  })
+  .then(function() {
+    var zipFile = fs.readFileSync(zipPath);
+    var params = {
+      FunctionName: "lambda-packager",
+      ZipFile: zipFile
+    };
+
+    return updateFunctionCode(params);
+  })
+  .catch(function(err) {
+    console.log(err);
+    console.log(err.stack);
+  });

@@ -1,0 +1,7 @@
+{
+  "name": "simple-package",
+  "version": "0.1.0",
+  "dependencies": {
+    "chalk": "1.1.1"
+  }
+}

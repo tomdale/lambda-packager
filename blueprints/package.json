@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "archiver": "^0.16.0",
+    "npm": "^2.0",
+    "rsvp": "^3.1.0"
+  }
+}
