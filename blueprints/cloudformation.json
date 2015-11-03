@@ -46,6 +46,19 @@
           }
         } ]
       }
+    },
+    "LambdaFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Handler": "handler.handler",
+        "Role": { "Fn::GetAtt" : ["ExecutionRole", "Arn"] },
+        "Runtime": "nodejs",
+        "Timeout": "300",
+        "Code": {
+          "S3Bucket": "lambda-packager",
+          "S3Key": "output.zip"
+        }
+      }
     }
   },
   "Outputs": {
