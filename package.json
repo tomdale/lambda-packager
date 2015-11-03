@@ -31,8 +31,10 @@
     "aws-sdk": "^2.2.13",
     "chalk": "^1.1.1",
     "commander": "^2.9.0",
+    "debug": "^2.2.0",
     "fs-extra": "^0.24.0",
     "fs-promise": "^0.3.1",
+    "lodash.merge": "^3.3.2",
     "rsvp": "^3.1.0"
   }
 }

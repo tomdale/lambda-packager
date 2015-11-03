@@ -4,7 +4,10 @@ var program  = require('commander');
 var pkg      = require('../package.json');
 var chalk    = require('chalk');
 var red      = chalk.red;
-var green    = chalk.green;
+
+// Commands
+var PackageCommand = require('../lib/commands/package');
+var DeployCommand  = require('../lib/commands/deploy');
 
 program
   .version(pkg.version)
@@ -13,13 +16,13 @@ program
 program.command('package <package-directory> <output-zip>')
   .description('Builds dependencies for the specified package and saves the package plus dependencies in the specific zip file')
   .action(function(packageDirectory, outputZip) {
-    var packager = require('../lib/packager');
-    packager.build({
-      from: packageDirectory,
-      to: outputZip
-    }).then(function() {
-      console.log(green("Packaged " + packageDirectory + " into " + outputZip + "."));
-    });
+    PackageCommand.run(packageDirectory, outputZip);
+  });
+
+program.command('deploy')
+  .description('Provisions an AWS CloudFormation stack for building dependencies')
+  .action(function() {
+    DeployCommand.run();
   });
 
 program.command('*', null, { noHelp: true } )
@@ -28,10 +31,11 @@ program.command('*', null, { noHelp: true } )
     program.outputHelp();
   });
 
-program.parse(process.argv);
-
+// If no command is provided, print help and exit
 if (process.argv.length == 2) {
   program.parse(process.argv);
   program.outputHelp();
   process.exit();
 }
+
+program.parse(process.argv);
