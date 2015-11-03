@@ -1,10 +1,37 @@
 #!/usr/bin/env node
 
-var packager = require('../lib/packager');
+var program  = require('commander');
+var pkg      = require('../package.json');
+var chalk    = require('chalk');
+var red      = chalk.red;
+var green    = chalk.green;
 
-console.log('saving ' + process.argv[2] + ' to ' + process.argv[3]);
+program
+  .version(pkg.version)
+  .description("Tool for building Node packages to be deployed to AWS Lambda");
 
-packager.build({
-  from: process.argv[2],
-  to: process.argv[3]
-});
+program.command('package <package-directory> <output-zip>')
+  .description('Builds dependencies for the specified package and saves the package plus dependencies in the specific zip file')
+  .action(function(packageDirectory, outputZip) {
+    var packager = require('../lib/packager');
+    packager.build({
+      from: packageDirectory,
+      to: outputZip
+    }).then(function() {
+      console.log(green("Packaged " + packageDirectory + " into " + outputZip + "."));
+    });
+  });
+
+program.command('*', null, { noHelp: true } )
+  .action(function (cmd){
+    console.log(red("  " + cmd + "  is not a valid command."));
+    program.outputHelp();
+  });
+
+program.parse(process.argv);
+
+if (process.argv.length == 2) {
+  program.parse(process.argv);
+  program.outputHelp();
+  process.exit();
+}

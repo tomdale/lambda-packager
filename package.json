@@ -6,6 +6,9 @@
   "scripts": {
     "test": "mocha test/**/*-test.js"
   },
+  "bin": {
+    "lambda-packager": "bin/lambda-packager"
+  },
   "repository": "tomdale/lambda-packager",
   "keywords": [
     "aws",
@@ -18,7 +21,6 @@
   },
   "homepage": "https://github.com/tomdale/lambda-packager#readme",
   "devDependencies": {
-    "adm-zip": "^0.4.7",
     "chai": "^3.4.0",
     "chai-as-promised": "^5.1.0",
     "mocha": "^2.3.3",
@@ -27,6 +29,8 @@
   "dependencies": {
     "archiver": "^0.16.0",
     "aws-sdk": "^2.2.13",
+    "chalk": "^1.1.1",
+    "commander": "^2.9.0",
     "fs-extra": "^0.24.0",
     "fs-promise": "^0.3.1",
     "rsvp": "^3.1.0"
