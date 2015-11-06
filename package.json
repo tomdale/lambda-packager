@@ -1,6 +1,6 @@
 {
   "name": "lambda-packager",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Builds dependencies for Node.js AWS Lambda functions",
   "main": "lib/packager.js",
   "scripts": {
