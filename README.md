@@ -21,10 +21,8 @@ Lambda-compatible `node_modules` directory that's ready to deploy.
 
 ### Usage
 
-**Warning**: Out of the box, Lambda Packager uploads your project's
-`package.json` file to a third-party server to build dependencies. If
-you'd rather host your own dependency builder, see the
-[Deployment](#deployment) section.
+**Note**: You must deploy the Lambda builder before these commands will
+work. See [Deployment](#deployment).
 
 #### Command Line
 
@@ -46,6 +44,26 @@ lambdaPackager.build({
 Assuming `my-package` is a path to a directory with a `package.json`
 file, its dependencies will be compiled via Lambda, then the package
 plus the dependencies will be placed into `my-package-function.zip`.
+
+## Deployment
+
+To build dependencies, Lambda Packager uploads your `package.json` to a
+Lambda function that builds your dependencies in the AWS environment.
+
+To deploy this builder function to AWS, run the `lambda-packager deploy`
+command, which will prompt you for the name to use for the
+CloudFormation stack, as well as what region to create it in.  It will
+automatically use the same credentials as the AWS CLI.
+
+This command builds a CloudFormation stack that provisions
+everything needed to build dependencies for Lambda Packager:
+
+* IAM Role
+* Lambda Function
+* S3 Bucket
+
+Make sure that the AWS account you have authorized via the AWS CLI has
+permission to create each of these resources.
 
 ### Example
 
@@ -116,32 +134,6 @@ To facilitate deployment, Lambda Packager will create a copy of your
 Node package, copy in the Lambda-built `node_modules` directory, and
 create a zip file that is ready to deploy via the AWS console or CLI
 utility.
-
-## Deployment
-
-To build dependencies, Lambda Packager uploads your `package.json` to a
-Lambda function that builds your dependencies in the AWS environment. By
-default, it will use a Lambda function generously hosted and paid for by
-[Bustle Labs][bustle-labs].
-
-If you would prefer to deploy your own Lambda function for building
-dependencies, run the `lambda-packager deploy` command.
-
-This command builds a CloudFormation stack that provisions
-everything needed to build dependencies for Lambda Packager:
-
-* IAM Role
-* Lambda Function
-* S3 Bucket
-
-Make sure that the AWS account you have authorized via the AWS CLI has
-permission to create each of these resources. The `lambda-packager
-deploy` command uses the same credentials as the AWS CLI command. You
-can specify a profile for deploying providing the `--profile` option:
-
-```sh
-lambda-packager deploy --profile admin
-```
 
 ## Thanks
 
