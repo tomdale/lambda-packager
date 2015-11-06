@@ -1,0 +1,28 @@
+#!/usr/bin/env node
+
+var AWS   = require('aws-sdk');
+var RSVP  = require('rsvp');
+var temp  = require('temp').track();
+var mkdir = RSVP.denodeify(temp.mkdir);
+var exec  = RSVP.denodeify(require('child_process').exec);
+var path  = require('path');
+var fs    = require('fs');
+
+// This script is for maintainers to build the Lambda function that does the actual
+// compiling on Lambda. This is the file pointed to in the CloudFormation template.
+var zipPath;
+
+mkdir('lambda-packager')
+  .then(function(tmpPath) {
+    zipPath = path.join(tmpPath, 'lambda-packager.zip');
+  })
+  .then(function() {
+    return exec("zip -qr " + zipPath + " handler.js node_modules", { cwd: 'blueprints/builder' });
+  })
+  .then(function() {
+    return exec("cp " + zipPath + " ./lambda-builder.zip");
+  })
+  .catch(function(err) {
+    console.log(err);
+    console.log(err.stack);
+  });
