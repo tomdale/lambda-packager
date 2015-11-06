@@ -27,6 +27,8 @@ describe("Package", function() {
     it("should have a node_modules directory", function() {
       zip(zipPath).shouldInclude([
         'node_modules/',
+        'node_modules/chalk/',
+        'node_modules/chalk/package.json',
         'package.json'
       ]);
     });

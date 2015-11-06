@@ -4,6 +4,10 @@ var program  = require('commander');
 var pkg      = require('../package.json');
 var chalk    = require('chalk');
 var red      = chalk.red;
+var ui       = require('../lib/util/ui');
+
+// Enable logging
+ui.silent = false;
 
 // Commands
 var PackageCommand = require('../lib/commands/package');

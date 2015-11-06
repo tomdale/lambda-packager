@@ -64,6 +64,9 @@
   "Outputs": {
     "Bucket": {
       "Value": { "Ref": "OutputBucket" }
+    },
+    "Function": {
+      "Value": { "Ref": "LambdaFunction" }
     }
   }
 }
