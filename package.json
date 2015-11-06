@@ -25,7 +25,6 @@
     "chai": "^3.4.0",
     "chai-as-promised": "^5.1.0",
     "mocha": "^2.3.3",
-    "temp": "^0.8.3"
   },
   "dependencies": {
     "archiver": "^0.16.0",
@@ -38,6 +37,7 @@
     "inquirer": "^0.11.0",
     "lodash.merge": "^3.3.2",
     "rsvp": "^3.1.0",
-    "user-home": "^2.0.0"
+    "user-home": "^2.0.0",
+    "temp": "^0.8.3"
   }
 }
