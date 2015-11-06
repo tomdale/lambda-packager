@@ -1,6 +1,6 @@
 {
   "name": "lambda-packager",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Builds dependencies for Node.js AWS Lambda functions",
   "main": "lib/packager.js",
   "scripts": {
@@ -24,7 +24,7 @@
     "adm-zip": "^0.4.7",
     "chai": "^3.4.0",
     "chai-as-promised": "^5.1.0",
-    "mocha": "^2.3.3",
+    "mocha": "^2.3.3"
   },
   "dependencies": {
     "archiver": "^0.16.0",
