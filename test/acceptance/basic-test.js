@@ -35,5 +35,32 @@ describe("Package", function() {
 
   });
 
+  describe("with native dependencies", function() {
+    var zipPath = path.join(tmpDir, 'native-dependencies-package.zip');
+
+    before(function() {
+      return packager.build({
+        from: path.resolve(__dirname, '../fixtures/native-dependencies-package'),
+        to: zipPath
+      });
+    });
+
+    it("should create a zip file", function() {
+      return expect(exists(zipPath)).to.eventually.be.true;
+    });
+
+    it.only("should have a node_modules directory", function() {
+      zip(zipPath).shouldInclude([
+        'node_modules/',
+        'node_modules/chalk/',
+        'node_modules/chalk/package.json',
+        'node_modules/contextify/',
+        'node_modules/contextify/package.json',
+        'package.json'
+      ]);
+    });
+
+  });
+
 });
 

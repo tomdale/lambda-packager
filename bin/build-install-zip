@@ -17,7 +17,7 @@ mkdir('lambda-packager')
     zipPath = path.join(tmpPath, 'lambda-packager.zip');
   })
   .then(function() {
-    return exec("zip -qr " + zipPath + " handler.js node_modules", { cwd: 'blueprints/builder' });
+    return exec("zip -qr " + zipPath + " *", { cwd: 'blueprints/builder' });
   })
   .then(function() {
     return exec("cp " + zipPath + " ./lambda-builder.zip");
