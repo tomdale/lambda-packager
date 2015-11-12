@@ -15,6 +15,7 @@ app.post('/build', function(req, res) {
       res.send(data);
     })
     .catch(function(err) {
+      console.log(err);
       response.status(500).send();
     });
 });
@@ -30,3 +31,4 @@ var server = app.listen(app.get('port'), function() {
   console.log('Packager server running at http://%s:%s', host, port);
 });
 
+server.timeout = 5 * 60 * 1000;
