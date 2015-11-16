@@ -8,7 +8,7 @@ var exists = require('../helpers/exists');
 var zip = require('../helpers/zip');
 
 describe("Package", function() {
-  this.timeout(100000);
+  this.timeout(500000);
 
   describe("with pure JS dependencies", function() {
     var zipPath = path.join(tmpDir, 'simple-package.zip');
@@ -49,7 +49,7 @@ describe("Package", function() {
       return expect(exists(zipPath)).to.eventually.be.true;
     });
 
-    it.only("should have a node_modules directory", function() {
+    it("should have a node_modules directory", function() {
       zip(zipPath).shouldInclude([
         'node_modules/',
         'node_modules/chalk/',
